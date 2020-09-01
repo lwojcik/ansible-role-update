@@ -3,10 +3,12 @@
   apt:
     update_cache: yes
     cache_valid_time: "{{ cache_valid_time }}"
+  become: true
 
 - name: Upgrade all packages
   apt:
     upgrade: dist
+  become: true
 
 - name: Check if a reboot is needed
   register: reboot_required_file
@@ -23,3 +25,4 @@
     post_reboot_delay: 30
     test_command: uptime
   when: reboot_required_file.stat.exists
+  become: true
